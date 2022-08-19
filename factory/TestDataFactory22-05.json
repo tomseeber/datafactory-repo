@@ -1,0 +1,9 @@
+{
+	"name": "TestDataFactory22-05",
+	"location": "centralus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "5778d71e-2b33-4988-9cd3-786bd5786fca",
+		"tenantId": "d46b54b2-a652-420b-aa5a-2ef7f8fc706e"
+	}
+}

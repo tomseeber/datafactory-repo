@@ -1,0 +1,13 @@
+{
+	"name": "Gavan",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureDatabricks",
+		"typeProperties": {
+			"domain": "https://adb-355467232182768.8.azuredatabricks.net",
+			"existingClusterId": "0811-165511-mawfd3kf",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDg4QjNCQUFCLTdFRjQtNDI3Mi04QUJFLTY3RDg3Njk3MzI3M181NGM0YzBmZC01YTdmLTQ2YmEtYTQ0Ny1mMzVhNWEwMTc2NDciDQp9"
+		}
+	}
+}

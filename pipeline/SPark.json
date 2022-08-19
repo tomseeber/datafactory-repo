@@ -1,0 +1,73 @@
+{
+	"name": "SPark",
+	"properties": {
+		"activities": [
+			{
+				"name": "Producer",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Shared/Bootcamp/kafka_producer",
+					"libraries": [
+						{
+							"pypi": {
+								"package": ""
+							}
+						}
+					]
+				},
+				"linkedServiceName": {
+					"referenceName": "ClassDataBrick",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Consumer",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Wait1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Shared/Bootcamp/kafka_consumer_get_all_messages"
+				},
+				"linkedServiceName": {
+					"referenceName": "ClassDataBrick",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Wait1",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": 500
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2022-07-28T20:45:49Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

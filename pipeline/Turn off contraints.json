@@ -1,0 +1,100 @@
+{
+	"name": "Turn off contraints",
+	"properties": {
+		"activities": [
+			{
+				"name": "Turn Off Contraints",
+				"type": "Script",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "Gavan Turn off Contraints",
+					"type": "LinkedServiceReference"
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"type": "Query",
+							"text": "-- disable all constraints\nEXEC sp_MSforeachtable \"ALTER TABLE ? NOCHECK CONSTRAINT all\"\n"
+						}
+					],
+					"logSettings": {
+						"logDestination": "ActivityOutput"
+					}
+				}
+			},
+			{
+				"name": "Notebook1",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Turn Off Contraints",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Shared/Group6/capstone-populating-database_dev"
+				},
+				"linkedServiceName": {
+					"referenceName": "Gavan",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Turn On Constraints",
+				"type": "Script",
+				"dependsOn": [
+					{
+						"activity": "Notebook1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "Gavan Turn off Contraints",
+					"type": "LinkedServiceReference"
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"type": "Query",
+							"text": "-- enable all constraints\nexec sp_MSforeachtable @command1=\"print '?'\", @command2=\"ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all\"\n"
+						}
+					],
+					"logSettings": {
+						"logDestination": "ActivityOutput"
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2022-08-12T16:11:43Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
